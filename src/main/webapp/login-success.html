@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Garage Service Booking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+          --primary: #00e5ff;
+          --secondary: #7c4dff;
+          --glass: rgba(255,255,255,0.12);
+          --border: rgba(255,255,255,0.25);
+          --text: #ffffff;
+          --bg: radial-gradient(circle at top left, #0f172a, #020617);
+          --glow: 0 0 30px rgba(0,229,255,0.3);
+        }
+
+        * {
+          box-sizing: border-box;
+          font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+          margin: 0;
+          background: var(--bg);
+          color: var(--text);
+        }
+
+        /* ================= HEADER ================= */
+        header {
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          background: rgba(0,0,0,0.4);
+          backdrop-filter: blur(12px);
+          border-bottom: 1px solid rgba(255,255,255,0.15);
+          padding: 14px 8%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        header h1 {
+          margin: 0;
+          font-size: 1.6rem;
+          background: linear-gradient(90deg, #00e5ff, #7c4dff);
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+
+        nav a {
+          color: #fff;
+          text-decoration: none;
+          margin-left: 20px;
+          font-weight: 500;
+          transition: 0.3s;
+        }
+
+        nav a:hover {
+          color: #00e5ff;
+        }
+
+        /* ================= HERO ================= */
+        .hero {
+          min-height: 90vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 0 8%;
+        }
+
+        .hero-box {
+          background: var(--glass);
+          border: 1px solid var(--border);
+          backdrop-filter: blur(20px);
+          border-radius: 28px;
+          padding: 60px 40px;
+          max-width: 700px;
+          box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+        }
+
+        .hero h2 {
+          font-size: 3rem;
+          margin-bottom: 15px;
+          background: linear-gradient(90deg, #00e5ff, #7c4dff);
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+
+        .hero p {
+          font-size: 1.1rem;
+          opacity: 0.85;
+          margin-bottom: 30px;
+        }
+
+        .hero a {
+          display: inline-block;
+          background: linear-gradient(135deg, #00e5ff, #7c4dff);
+          padding: 14px 36px;
+          border-radius: 50px;
+          color: #fff;
+          font-weight: 600;
+          text-decoration: none;
+          box-shadow: 0 10px 25px rgba(0,229,255,0.5);
+          transition: 0.3s;
+        }
+
+        .hero a:hover {
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 18px 40px rgba(0,229,255,0.75);
+        }
+
+        /* ================= SERVICES ================= */
+        .services {
+          padding: 90px 8%;
+          text-align: center;
+        }
+
+        .services h2 {
+          font-size: 2.7rem;
+          margin-bottom: 10px;
+          background: linear-gradient(90deg, #00e5ff, #7c4dff);
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+
+        .services p {
+          opacity: 0.85;
+          margin-bottom: 60px;
+          font-size: 1.1rem;
+        }
+
+        .service-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 35px;
+        }
+
+        .service-card {
+          background: var(--glass);
+          border: 1px solid var(--border);
+          backdrop-filter: blur(18px);
+          border-radius: 22px;
+          padding: 28px 24px 30px;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+          transition: all 0.4s ease;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .service-card::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(120deg, transparent, rgba(255,255,255,0.15), transparent);
+          transform: translateX(-100%);
+          transition: 0.6s;
+        }
+
+        .service-card:hover::before {
+          transform: translateX(100%);
+        }
+
+        .service-card:hover {
+          transform: translateY(-10px) scale(1.02);
+          box-shadow: 0 25px 60px rgba(0,0,0,0.6), var(--glow);
+        }
+
+        .service-icon {
+          width: 64px;
+          height: 64px;
+          margin: 0 auto 18px;
+          background: linear-gradient(135deg, #00e5ff, #7c4dff);
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          font-size: 28px;
+          box-shadow: 0 10px 25px rgba(0,229,255,0.45);
+        }
+
+        .service-card h3 {
+          font-size: 1.35rem;
+          margin-bottom: 6px;
+        }
+
+        .service-desc {
+          font-size: 0.92rem;
+          opacity: 0.8;
+          margin-bottom: 14px;
+        }
+
+        .service-price {
+          font-size: 1.35rem;
+          font-weight: 600;
+          color: #00e5ff;
+          margin-bottom: 16px;
+        }
+
+        /* ================= TOGGLE ================= */
+        .toggle {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 18px;
+          font-size: 0.95rem;
+        }
+
+        .toggle input {
+          display: none;
+        }
+
+        .switch {
+          width: 48px;
+          height: 24px;
+          background: rgba(255,255,255,0.25);
+          border-radius: 50px;
+          position: relative;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .switch::after {
+          content: "";
+          width: 18px;
+          height: 18px;
+          background: #fff;
+          border-radius: 50%;
+          position: absolute;
+          top: 3px;
+          left: 3px;
+          transition: 0.3s;
+        }
+
+        .toggle input:checked + .switch {
+          background: linear-gradient(135deg, #00e5ff, #7c4dff);
+          box-shadow: 0 0 15px rgba(0,229,255,0.7);
+        }
+
+        .toggle input:checked + .switch::after {
+          left: 27px;
+        }
+
+        /* ================= SLOTS ================= */
+        .slots {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          justify-content: center;
+        }
+
+        .slot {
+          background: rgba(255,255,255,0.14);
+          border: 1px solid rgba(255,255,255,0.25);
+          padding: 7px 14px;
+          border-radius: 30px;
+          color: white;
+          font-size: 0.8rem;
+          cursor: pointer;
+          transition: 0.3s;
+          backdrop-filter: blur(6px);
+        }
+
+        .slot:hover {
+          background: linear-gradient(135deg, #00e5ff, #7c4dff);
+          box-shadow: 0 0 12px rgba(0,229,255,0.5);
+          transform: translateY(-2px);
+        }
+
+        .slot.active {
+          background: linear-gradient(135deg, #00e5ff, #7c4dff);
+          box-shadow: 0 0 14px rgba(0,229,255,0.7);
+        }
+
+        /* ================= CONFIRM BUTTON ================= */
+        .btn-primary {
+          background: linear-gradient(135deg, #00e5ff, #7c4dff);
+          border: none;
+          padding: 15px 40px;
+          border-radius: 50px;
+          font-size: 1rem;
+          font-weight: 600;
+          color: #fff;
+          cursor: pointer;
+          transition: 0.3s;
+          box-shadow: 0 10px 25px rgba(0,229,255,0.5);
+        }
+
+        .btn-primary:hover {
+          transform: translateY(-3px) scale(1.03);
+          box-shadow: 0 18px 40px rgba(0,229,255,0.75);
+        }
+
+        /* ================= CONTACT ================= */
+        .contact {
+          padding: 90px 8%;
+          text-align: center;
+        }
+
+        .contact h2 {
+          font-size: 2.5rem;
+          margin-bottom: 10px;
+          background: linear-gradient(90deg, #00e5ff, #7c4dff);
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+
+        .contact p {
+          opacity: 0.85;
+          margin-bottom: 50px;
+          font-size: 1.1rem;
+        }
+
+        .contact-box {
+          max-width: 650px;
+          margin: auto;
+          background: var(--glass);
+          border: 1px solid var(--border);
+          backdrop-filter: blur(18px);
+          border-radius: 22px;
+          padding: 40px 30px;
+          box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+        }
+
+        .contact form {
+          display: grid;
+          gap: 18px;
+        }
+
+        .contact input,
+        .contact textarea {
+          width: 100%;
+          padding: 12px 14px;
+          border-radius: 10px;
+          border: none;
+          outline: none;
+          background: rgba(255,255,255,0.15);
+          color: #fff;
+          font-size: 0.95rem;
+          border: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .contact textarea {
+          resize: none;
+          height: 110px;
+        }
+
+        .contact input::placeholder,
+        .contact textarea::placeholder {
+          color: rgba(255,255,255,0.7);
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+          text-align: center;
+          padding: 25px;
+          font-size: 0.85rem;
+          opacity: 0.6;
+          border-top: 1px solid rgba(255,255,255,0.15);
+        }
+
+        /* ================= MOBILE ================= */
+        @media (max-width: 600px) {
+          header h1 {
+            font-size: 1.3rem;
+          }
+          .hero h2 {
+            font-size: 2.1rem;
+          }
+          .services h2,
+          .contact h2 {
+            font-size: 2rem;
+          }
+          .hero-box {
+            padding: 40px 22px;
+          }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <h1>AutoCare+</h1>
+    <nav>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="index.html">Logout</a>
+    </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+    <div class="hero-box">
+        <h2>Premium Garage Services</h2>
+        <p>Book trusted car repair services instantly with live slots, transparent pricing, and expert mechanics.</p>
+        <a href="#services">Book Now</a>
+    </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="services" id="services">
+    <h2>Garage Services</h2>
+    <p>Select your service, choose a slot, and confirm instantly.</p>
+
+    <form action="bookService" method="post" id="serviceForm">
+        <div class="service-grid">
+
+            <!-- 1 -->
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3>Engine Diagnostics</h3>
+                <p class="service-desc">Computerized fault scanning & performance testing.</p>
+                <div class="service-price">₹1,499</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_engine" id="engine">
+                    <label class="switch" for="engine"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="9-10">9–10 AM</button>
+                    <button type="button" class="slot" data-slot="11-12">11–12 PM</button>
+                    <button type="button" class="slot" data-slot="2-3">2–3 PM</button>
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="service-card">
+                <div class="service-icon">🛢</div>
+                <h3>Oil Change</h3>
+                <p class="service-desc">Premium oil replacement & filter service.</p>
+                <div class="service-price">₹799</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_oil" id="oil">
+                    <label class="switch" for="oil"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="9-10">9–10 AM</button>
+                    <button type="button" class="slot" data-slot="12-1">12–1 PM</button>
+                    <button type="button" class="slot" data-slot="4-5">4–5 PM</button>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="service-card">
+                <div class="service-icon">🔋</div>
+                <h3>Battery Replacement</h3>
+                <p class="service-desc">Battery health test & instant replacement.</p>
+                <div class="service-price">₹2,499</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_battery" id="battery">
+                    <label class="switch" for="battery"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="10-11">10–11 AM</button>
+                    <button type="button" class="slot" data-slot="1-2">1–2 PM</button>
+                    <button type="button" class="slot" data-slot="3-4">3–4 PM</button>
+                </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="service-card">
+                <div class="service-icon">🛞</div>
+                <h3>Wheel Alignment</h3>
+                <p class="service-desc">Precision balancing & alignment tuning.</p>
+                <div class="service-price">₹1,199</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_alignment" id="alignment">
+                    <label class="switch" for="alignment"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="9-10">9–10 AM</button>
+                    <button type="button" class="slot" data-slot="11-12">11–12 PM</button>
+                    <button type="button" class="slot" data-slot="3-4">3–4 PM</button>
+                </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="service-card">
+                <div class="service-icon">🚿</div>
+                <h3>Car Wash & Detailing</h3>
+                <p class="service-desc">Interior vacuum + exterior foam wash.</p>
+                <div class="service-price">₹599</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_wash" id="wash">
+                    <label class="switch" for="wash"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="8-9">8–9 AM</button>
+                    <button type="button" class="slot" data-slot="10-11">10–11 AM</button>
+                    <button type="button" class="slot" data-slot="5-6">5–6 PM</button>
+                </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="service-card">
+                <div class="service-icon">🛑</div>
+                <h3>Brake Service</h3>
+                <p class="service-desc">Brake pad inspection & replacement.</p>
+                <div class="service-price">₹1,699</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_brake" id="brake">
+                    <label class="switch" for="brake"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="9-10">9–10 AM</button>
+                    <button type="button" class="slot" data-slot="12-1">12–1 PM</button>
+                    <button type="button" class="slot" data-slot="4-5">4–5 PM</button>
+                </div>
+            </div>
+
+            <!-- 7 -->
+            <div class="service-card">
+                <div class="service-icon">❄</div>
+                <h3>AC Repair</h3>
+                <p class="service-desc">Cooling diagnostics & gas refill.</p>
+                <div class="service-price">₹1,299</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_ac" id="ac">
+                    <label class="switch" for="ac"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="10-11">10–11 AM</button>
+                    <button type="button" class="slot" data-slot="2-3">2–3 PM</button>
+                    <button type="button" class="slot" data-slot="5-6">5–6 PM</button>
+                </div>
+            </div>
+
+            <!-- 8 -->
+            <div class="service-card">
+                <div class="service-icon">🧪</div>
+                <h3>Emission Testing</h3>
+                <p class="service-desc">Pollution control & compliance test.</p>
+                <div class="service-price">₹399</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_emission" id="emission">
+                    <label class="switch" for="emission"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="9-10">9–10 AM</button>
+                    <button type="button" class="slot" data-slot="11-12">11–12 PM</button>
+                    <button type="button" class="slot" data-slot="2-3">2–3 PM</button>
+                </div>
+            </div>
+
+            <!-- 9 -->
+            <div class="service-card">
+                <div class="service-icon">🔩</div>
+                <h3>Suspension Repair</h3>
+                <p class="service-desc">Shock absorber & ride comfort tuning.</p>
+                <div class="service-price">₹2,199</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_suspension" id="suspension">
+                    <label class="switch" for="suspension"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="9-10">9–10 AM</button>
+                    <button type="button" class="slot" data-slot="1-2">1–2 PM</button>
+                    <button type="button" class="slot" data-slot="4-5">4–5 PM</button>
+                </div>
+            </div>
+
+            <!-- 10 -->
+            <div class="service-card">
+                <div class="service-icon">🚘</div>
+                <h3>Full Car Inspection</h3>
+                <p class="service-desc">Complete 30-point vehicle health check.</p>
+                <div class="service-price">₹2,999</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_inspection" id="inspection">
+                    <label class="switch" for="inspection"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="10-11">10–11 AM</button>
+                    <button type="button" class="slot" data-slot="12-1">12–1 PM</button>
+                    <button type="button" class="slot" data-slot="3-4">3–4 PM</button>
+                </div>
+            </div>
+
+            <!-- 11 -->
+            <div class="service-card">
+                <div class="service-icon">🚗</div>
+                <h3>Tyre Replacement</h3>
+                <p class="service-desc">Tyre fitting, balancing & pressure tuning.</p>
+                <div class="service-price">₹3,499</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_tyre" id="tyre">
+                    <label class="switch" for="tyre"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="9-10">9–10 AM</button>
+                    <button type="button" class="slot" data-slot="12-1">12–1 PM</button>
+                    <button type="button" class="slot" data-slot="4-5">4–5 PM</button>
+                </div>
+            </div>
+
+            <!-- 12 -->
+            <div class="service-card">
+                <div class="service-icon">⚙</div>
+                <h3>Clutch Repair</h3>
+                <p class="service-desc">Clutch plate inspection & replacement.</p>
+                <div class="service-price">₹4,999</div>
+
+                <div class="toggle">
+                    <input type="checkbox" name="service_clutch" id="clutch">
+                    <label class="switch" for="clutch"></label>
+                    <span>Select</span>
+                </div>
+
+                <div class="slots">
+                    <button type="button" class="slot" data-slot="10-11">10–11 AM</button>
+                    <button type="button" class="slot" data-slot="1-2">1–2 PM</button>
+                    <button type="button" class="slot" data-slot="3-4">3–4 PM</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="margin-top:60px;text-align:center;">
+            <button type="submit" class="btn-primary">
+                Confirm Booking
+            </button>
+        </div>
+    </form>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <p>Need help? Send us a message — we’ll call you back.</p>
+
+    <div class="contact-box">
+        <form action="contactSupport" method="post">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+            <textarea name="message" placeholder="Your Message"></textarea>
+            <button type="submit" class="btn-primary">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+    © 2026 AutoCare+ | Premium Garage Booking Platform
+</footer>
+
+<!-- ================= JS ================= -->
+<script>
+    document.querySelectorAll(".slot").forEach(btn => {
+      btn.addEventListener("click", () => {
+        btn.classList.toggle("active");
+      });
+    });
+</script>
+
+</body>
+</html>

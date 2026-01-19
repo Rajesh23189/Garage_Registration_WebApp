@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Registration Successful</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Inter', sans-serif;
+        }
+
+        body {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background:
+            radial-gradient(circle at 20% 20%, #5f9cff, transparent 40%),
+            radial-gradient(circle at 80% 80%, #9b6bff, transparent 40%),
+            linear-gradient(135deg, #0f172a, #1e293b);
+          overflow: hidden;
+        }
+
+        /* Floating background glow */
+        .bg-glow {
+          position: absolute;
+          width: 280px;
+          height: 280px;
+          border-radius: 50%;
+          background: #4f46e5;
+          filter: blur(140px);
+          top: 10%;
+          left: 15%;
+          animation: glowFloat 10s ease-in-out infinite alternate;
+          opacity: 0.6;
+        }
+
+        .bg-glow.second {
+          background: #22c55e;
+          top: auto;
+          bottom: 12%;
+          left: auto;
+          right: 18%;
+          animation-delay: 4s;
+        }
+
+        @keyframes glowFloat {
+          from { transform: translateY(0); }
+          to { transform: translateY(-70px); }
+        }
+
+        /* Glass card */
+        .card {
+          position: relative;
+          width: 420px;
+          padding: 44px 38px;
+          border-radius: 22px;
+          background: rgba(255, 255, 255, 0.12);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          box-shadow:
+            0 30px 70px rgba(0, 0, 0, 0.35),
+            inset 0 0 18px rgba(255, 255, 255, 0.06);
+          text-align: center;
+          animation: cardEnter 0.7s ease;
+          color: #f8fafc;
+        }
+
+        @keyframes cardEnter {
+          from {
+            transform: translateY(30px) scale(0.9);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+          }
+        }
+
+        /* Success badge */
+        .badge {
+          width: 76px;
+          height: 76px;
+          margin: 0 auto 18px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, rgba(34,197,94,0.25), rgba(34,197,94,0.05));
+          border: 1px solid rgba(34,197,94,0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 0 25px rgba(34,197,94,0.35);
+          animation: badgePop 0.5s ease forwards;
+        }
+
+        .badge svg {
+          width: 38px;
+          height: 38px;
+          stroke: #22c55e;
+          stroke-width: 4;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 120;
+          stroke-dashoffset: 120;
+          animation: draw 0.7s ease forwards 0.25s;
+        }
+
+        @keyframes draw {
+          to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes badgePop {
+          from { transform: scale(0.5); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
+        }
+
+        h2 {
+          font-size: 24px;
+          font-weight: 600;
+          margin-bottom: 6px;
+          letter-spacing: 0.3px;
+        }
+
+        p {
+          font-size: 14px;
+          opacity: 0.85;
+          margin-bottom: 26px;
+          line-height: 1.5;
+        }
+
+        /* Button */
+        .btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 12px 26px;
+          font-size: 14px;
+          font-weight: 500;
+          border-radius: 12px;
+          color: #f8fafc;
+          text-decoration: none;
+          background: linear-gradient(135deg, #4f46e5, #6366f1);
+          box-shadow: 0 12px 30px rgba(79,70,229,0.45);
+          transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+          transform: translateY(-2px) scale(1.04);
+          box-shadow: 0 18px 40px rgba(79,70,229,0.65);
+        }
+
+        .btn:active {
+          transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="bg-glow second"></div>
+
+<div class="card">
+    <div class="badge">
+        <svg viewBox="0 0 52 52">
+            <path d="M14 27 L23 36 L38 16"></path>
+        </svg>
+    </div>
+
+    <h2>Registration Complete</h2>
+    <p>Your account has been successfully created.<br>Please proceed to login.</p>
+
+    <a href="index.html" class="btn">Go to Login</a>
+</div>
+
+</body>
+</html>
