@@ -75,7 +75,7 @@ public class Registration_DB {
 
 
 
-    public boolean Check_Email_Present_Or_Not(String email)
+    public  boolean Check_Email_Present_Or_Not(String email)
     {
         try
         {

@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.JDBC_Util_Class;
+import Model.Registration_DB;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,15 +17,35 @@ public class Login extends HttpServlet {
         String email = request.getParameter("loginEmail");
         String password = request.getParameter("loginPassword");
 
+        Registration_DB registrationDb = new Registration_DB();
+        boolean unique_email = registrationDb.Check_Email_Present_Or_Not(email);
 
-        try
+        if(unique_email)
         {
-            response.sendRedirect("login-success.html");
+            try
+            {
+                response.sendRedirect("login-success.html");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
-        catch (IOException e)
+        else
         {
-            e.printStackTrace();
+            try
+            {
+                response.sendRedirect("login-unsuccess.html");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
         }
+
+
+
 
     }
 }

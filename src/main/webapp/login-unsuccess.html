@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Failed | Invalid Credentials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #ff416c, #ff4b2b);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .card {
+          width: 420px;
+          padding: 40px;
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(15px);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+          text-align: center;
+          color: white;
+          animation: pop 0.6s ease;
+        }
+
+        @keyframes pop {
+          from {
+            transform: scale(0.8);
+            opacity: 0;
+          }
+          to {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        .icon {
+          font-size: 60px;
+          margin-bottom: 15px;
+          color: #ffdddd;
+        }
+
+        h1 {
+          font-size: 26px;
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 14px;
+          opacity: 0.9;
+          margin-bottom: 25px;
+        }
+
+        .btn {
+          display: inline-block;
+          padding: 12px 28px;
+          background: white;
+          color: #ff4b2b;
+          border-radius: 30px;
+          text-decoration: none;
+          font-weight: 600;
+          transition: 0.3s;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+          background: #ffecec;
+        }
+
+        .help {
+          margin-top: 15px;
+          font-size: 12px;
+          opacity: 0.8;
+        }
+
+        @media (max-width: 480px) {
+          .card {
+            width: 90%;
+            padding: 30px;
+          }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="icon">❌</div>
+    <h1>Login Failed</h1>
+    <p>Invalid username or password. Please try again.</p>
+    <a href="index.html" class="btn">Try Again</a>
+    <div class="help">Need help? Contact support.</div>
+</div>
+
+</body>
+</html>
