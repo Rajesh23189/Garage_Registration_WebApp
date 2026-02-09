@@ -29,7 +29,7 @@ public class JDBC_Util_Class {
         final String PASSWORD = "Rajesh@289";
 
 
-        Connection connection = DriverManager.getConnection(URL,USERNAME);
+        Connection connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
         return connection;
     }
 
