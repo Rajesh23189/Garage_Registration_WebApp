@@ -35,7 +35,7 @@ public class JDBC_Util_Class {
 
     public static void closeConnection(Connection connection , Statement statement) throws SQLException
     {
-        if(connection != null)
+        if(connection = null)
         {
             connection.close();
         }
